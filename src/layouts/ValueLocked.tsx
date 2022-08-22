@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import * as dfd from "danfojs";
+
+import { TotalValueLocked } from "../components/TotalValueLocked";
 import { tvlQuery } from "../sql/tvl";
 import { queryFlipside } from "../utils/FlipsideQuery";
-import { QueryResultRecord } from "@flipsidecrypto/sdk";
-import { Area } from "../charts/Area";
+import { TokenValueLocked } from "../components/TokenValueLocked";
 
 export const TVL = () => {
   const [loading, setLoading] = useState(true);
-  const [chartData, setChartData] = useState<JSX.Element | null>(null);
+  const [Data, setData] = useState<dfd.DataFrame>(new dfd.DataFrame([{}]));
 
   let network = "optimism";
   let liq_pool = "0xb4778f5aefeb4605ed96e893417271d4a55e32ee";
@@ -17,19 +19,19 @@ export const TVL = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const Data = await queryFlipside(
+      const data = await queryFlipside(
         tvlQuery({ network, liq_pool, weth, usdc, usdt, bico })
       );
       setLoading(false);
-      console.log(Data);
-      let plotData = Data?.map((datapoint) => {
-        return {
-          timestamp: new Date(datapoint.date).getTime(),
-          balance: datapoint.tvl,
-        };
-      });
-      console.log(plotData);
-      setChartData(<Area plotdata={plotData} />);
+      // console.log(data);
+
+      data?.map((datapoint) => {
+        datapoint.date = (new Date(datapoint.date as string)).getTime()
+      })
+
+      let df = new dfd.DataFrame(data);
+      setData(df);
+      // console.log(Data)
     };
 
     getData();
@@ -40,8 +42,8 @@ export const TVL = () => {
   }
   return (
     <>
-      <div>TVL</div>
-      {chartData}
+      <TotalValueLocked data={Data} />
+      <TokenValueLocked data={Data} />
     </>
   );
 };

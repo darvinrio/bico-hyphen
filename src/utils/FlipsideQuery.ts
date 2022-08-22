@@ -16,5 +16,6 @@ export const queryFlipside = async (sql: string) => {
   if (result.error) {
     console.log(result.error);
   }
-  return result.error ? [[]] : result.records;
+  // return result.error ? [[]] : result.records;
+  return result.records
 };

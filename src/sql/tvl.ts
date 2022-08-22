@@ -51,20 +51,17 @@ export const tvlQuery = ({
     order by block_timestamp desc 
     )
 
-    select 
-    date,
-    sum(usd_liq) as tvl 
-    from  (
-    select 
-        date(block_timestamp) as date,
-        token,
-        liq,
-        price,
-        liq*price as usd_liq,
-        rank() over (partition by token order by date desc) as rank
-    from bal_updates join prices on date(block_timestamp)=hour and token=symbol
-    where date_rank = 1
-    )
-    group by 1
+    select * from (
+        select 
+            date(block_timestamp) as date,
+            token,
+            liq,
+              price,
+              liq*price as usd_liq,
+              rank() over (partition by token order by date desc) as rank
+        from bal_updates join prices on date(block_timestamp)=hour and token=symbol
+        where date_rank = 1
+      )
+      order by rank
     `;
 };

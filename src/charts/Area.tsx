@@ -11,8 +11,7 @@ import {
   } from "chart.js";
   import { dateFormatter } from "../utils/PlotHelpers";
   
-  import styled from "styled-components";
-  import { Bar, Line } from "react-chartjs-2";
+  import { Line } from "react-chartjs-2";
   
   ChartJS.register(
     CategoryScale,
@@ -25,7 +24,7 @@ import {
     Legend
   );
   
-  interface dataprop {
+  export interface dataprop {
     timestamp: number;
     balance: number;
   }
@@ -48,6 +47,7 @@ import {
   
     const options = {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         intersect: false,
         mode: 'index' as "index",
@@ -65,6 +65,11 @@ import {
             grid: {
               display: false,
             },
+            ticks: {
+              callback: function(value:number, index:number) {
+                  return '$' + value;
+              }
+            }
           },
           y: {
             grid: {
@@ -90,9 +95,9 @@ import {
       ],
     };
     return (
-      <>
+      <div>
         <Line options={options} data={data} />
-      </>
+      </ div>
     );
   };
   
