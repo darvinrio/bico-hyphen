@@ -1,3 +1,21 @@
+# Hyphen Dash
+
+## `A dashboard tracking metrics on Hyphen Bridge by Biconomy `
+### Currently only Optimism is supported
+
+Data Queried from [FlipsideCrypto](https://flipsidecrypto.xyz/)
+
+All Graph Queries are included separately in `src/sql` folder
+
+## Prerequisites
+
+Get a Flipside ShroomDK Key by minting on on [Shroom Minter](https://sdk.flipsidecrypto.xyz/shroomdk)
+
+Create a .env with `NEXT_PUBLIC_FLIPSIDE_SHROOM_KEY = <YOUR_API_KEY>`
+
+---
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
