@@ -28,18 +28,19 @@ export const TotalValueLocked = ({ data }: Props) => {
     <>
       <p>Total Value Locked</p>
       <TvlDiv>
-        <div>
-          <Area plotdata={plotData} color={"#ff69b4"} />
-        </div>
-        <Metric label="Total USD value locked" value={NumberFormatter(TVL)} />
+        <Area plotdata={plotData} color={"#ff69b4"} />
+        <Metric
+          label="Total USD value locked"
+          value={"$" + NumberFormatter(TVL)}
+        />
       </TvlDiv>
     </>
   );
 };
 
 const TvlDiv = styled.div`
-  /* max-height: 400px ; */
-  min-height: 300px;
+  /* max-height: 300px ; */
+
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-gap: 1rem;

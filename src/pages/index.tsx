@@ -34,8 +34,9 @@ interface Props {
   data: JSON[]
 }
 
-const Home: NextPage = ({data}:Props) => {
+const Home: NextPage<Props> = ({data}:Props) => {
 
+  console.log(data)
   let df = new dfd.DataFrame(data);
   console.log(df)
 
@@ -43,7 +44,7 @@ const Home: NextPage = ({data}:Props) => {
     <div>
       <Head>
         <title>Hyphen on Optimism</title>
-        <meta />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       </Head>
       <ValueLocked df={df}/>
     </div>
