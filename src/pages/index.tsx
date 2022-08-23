@@ -36,9 +36,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({data}:Props) => {
 
-  console.log(data)
   let df = new dfd.DataFrame(data);
-  console.log(df)
 
   return (
     <div>

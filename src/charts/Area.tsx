@@ -107,10 +107,16 @@ export const Area = ({ plotdata, color }: props) => {
 };
 
 const ChartDiv = styled.div`
+  padding: 1rem ;
   min-height: 300px;
   position: relative;
 `;
 
 const ChartWrap = styled.div`
   min-width: 0;
+
+  border: 1px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 10px;
 `;

@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
    
@@ -12,7 +12,8 @@ export const GlobalStyles = createGlobalStyle`
 body {
   background: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.text} ;
-  font-family: ${({ theme }) => theme.font_family.name}, ${({ theme }) => theme.font_family.type};
+  font-family: ${({ theme }) => theme.font_family.name}, ${({ theme }) =>
+  theme.font_family.type};
   /* font-family: "Space Mono", monospace; */
   /* font-size: 1.15em; */
   margin: 30px;
@@ -37,4 +38,4 @@ a {
     color:pink ;
   }
 }
-`
+`;

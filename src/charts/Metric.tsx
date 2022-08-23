@@ -10,9 +10,8 @@ export const Metric = ({ label, value }: props) => {
   return (
     <MetricDiv>
       <h4>{label}</h4>
-      {/* <hr /> */}
+      <hr />
       <h2>{value}</h2>
-      {/* <h1>{value}</h1> */}
     </MetricDiv>
   );
 };
