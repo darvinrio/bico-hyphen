@@ -1,14 +1,20 @@
 import type { AppProps } from "next/app";
+import { DefaultTheme, ThemeProvider } from "styled-components";
 
 import { Navbar } from "../layouts/Navbar";
+import { GlobalStyles } from "../styles/Global";
 
-import "../styles/globals.css";
+let theme = require("../json/theme.json");
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const myTheme: DefaultTheme = theme;
   return (
     <>
-      <Navbar />
-      <Component {...pageProps} />
+      <ThemeProvider theme={myTheme}>
+        <GlobalStyles />
+        <Navbar />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }

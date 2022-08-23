@@ -56,9 +56,9 @@ export const tvlQuery = ({
             date(block_timestamp) as date,
             token,
             liq,
-              price,
-              liq*price as usd_liq,
-              rank() over (partition by token order by date desc) as rank
+            price,
+            liq*price as usd_liq,
+            rank() over (partition by token order by date desc) as rank
         from bal_updates join prices on date(block_timestamp)=hour and token=symbol
         where date_rank = 1
       )

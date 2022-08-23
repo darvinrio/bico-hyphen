@@ -28,12 +28,14 @@ import {
     timestamp: number;
     balance: number;
   }
+  type hexcolor = `#${string}`;
   
   interface props {
     plotdata: dataprop[];
+    color: hexcolor
   }
-  
-  export const Area = ({ plotdata }: props) => {
+
+  export const Area = ({ plotdata,color }: props) => {
     plotdata.sort((a, b) => {
       return a.timestamp - b.timestamp;
     });
@@ -87,17 +89,15 @@ import {
           data: balances,
           fill: true,
           stepped: true,
-          backgroundColor: "rgba(255, 105, 180, 0.2)",
+          backgroundColor: color+"46",
           borderWidth: 1,
-          borderColor: "hotpink",
+          borderColor: color,
           pointRadius: 0,
         },
       ],
     };
     return (
-      <div>
         <Line options={options} data={data} />
-      </ div>
     );
   };
   

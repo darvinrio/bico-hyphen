@@ -1,0 +1,13 @@
+{
+    "colors":{
+        "nav":"brey",
+        "bg":"black",
+        "text":"white",
+        "btn_light":"pink",
+        "btn_dark":"pink"
+    },
+    "font_family":{
+        "name": "JetBrains Mono",
+        "type": "monospace"
+    }
+}

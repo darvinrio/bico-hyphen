@@ -12,7 +12,6 @@ type Props = {
 };
 
 export const TotalValueLocked = ({ data }: Props) => {
-
   let grp = data.groupby(["date"]);
   let plotdf = grp.col(["usd_liq"]).sum();
   plotdf = plotdf.rename({ date: "timestamp", usd_liq_sum: "balance" });
@@ -22,14 +21,16 @@ export const TotalValueLocked = ({ data }: Props) => {
 
   plotData.sort((a, b) => {
     return a.timestamp - b.timestamp;
-  })
-  let TVL = plotData[plotData.length-1].balance
+  });
+  let TVL = plotData[plotData.length - 1].balance;
 
   return (
     <>
       <p>Total Value Locked</p>
       <TvlDiv>
-        <Area plotdata={plotData} />
+        <div>
+          <Area plotdata={plotData} color={"#ff69b4"} />
+        </div>
         <Metric label="Total USD value locked" value={NumberFormatter(TVL)} />
       </TvlDiv>
     </>
@@ -40,5 +41,6 @@ const TvlDiv = styled.div`
   /* max-height: 400px ; */
   min-height: 300px;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 1rem;
 `;

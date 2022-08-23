@@ -17,8 +17,6 @@ export const Metric = ({ label, value }: props) => {
 }
 
 const MetricDiv = styled.div`
-  /* min-width: 200px ; */
-
   display: flex ;
   flex-direction: column ;
   justify-content: center ;
@@ -28,7 +26,4 @@ const MetricDiv = styled.div`
   border-style: solid;
   border-color: white ;
   border-radius: 10px ;
-
-  padding: 10px ;
-  margin: 20px ;
 `
