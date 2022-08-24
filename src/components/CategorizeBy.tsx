@@ -2,15 +2,16 @@ import * as dfd from "danfojs";
 import styled from "styled-components";
 
 import { Donut, dataprop } from "../charts/Donut";
-import { StackedBar, stackeddataprop } from "../charts/StackedBar";
+import { StackedBar } from "../charts/StackedBar";
 
 type Props = {
   data: dfd.DataFrame;
   data_key: string;
 };
 
-export const DepositBy = ({ data, data_key }: Props) => {
+export const CategorizeBy = ({ data, data_key }: Props) => {
   // console.log(data_key);
+
   // Donut making
   let grp = data.groupby([data_key]);
   let txVOLdf = grp.col(["txs"]).sum();
@@ -30,24 +31,28 @@ export const DepositBy = ({ data, data_key }: Props) => {
     [data_key]: "key",
     usd_vol_sum: "value",
   });
-  let stackedusdVOLData = dfd.toJSON(stackedusdVOLdf) as stackeddataprop[];
   stackedtxVOLdf = stackedtxVOLdf.rename({
     [data_key]: "key",
     txs_sum: "value",
   });
-  let stackedtxVOLData = dfd.toJSON(stackedtxVOLdf) as stackeddataprop[];
 
   return (
     <>
       <p>Txs Vol</p>
       <ByDiv>
-        <Donut plotdata={txVOLData} />
-        <StackedBar plotdata={stackedtxVOLdf} />
+        <Donut title={"Overall Tx Vol by " + data_key} plotdata={txVOLData} />
+        <StackedBar
+          title={"Daily Tx Vol by " + data_key}
+          plotdata={stackedtxVOLdf}
+        />
       </ByDiv>
       <p>USD Vol</p>
       <ByDiv>
-        <Donut plotdata={usdVOLData} />
-        <StackedBar plotdata={stackedusdVOLdf} />
+        <Donut title={"Overall USD Vol by " + data_key} plotdata={usdVOLData} />
+        <StackedBar
+          title={"Daily USD Vol by " + data_key}
+          plotdata={stackedusdVOLdf}
+        />
       </ByDiv>
       <br />
       <hr />

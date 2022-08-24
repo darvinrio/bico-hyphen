@@ -5,7 +5,7 @@ import * as dfd from "danfojs";
 
 import { depositQuery } from "../sql/deposit";
 import { queryFlipside } from "../utils/FlipsideQuery";
-import { BridgeOut } from "../components/BridgeOut";
+import { BridgeOut } from "../layouts/BridgeOut";
 
 export async function getStaticProps() {
   let network = "optimism";

@@ -6,16 +6,16 @@ export const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap');
 
   
-* {
-  box-sizing: border-box;
-}
 body {
+  height: 100% ;
+  display: flex ;
+  flex-direction: column;
+
   background: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.text} ;
   font-family: ${({ theme }) => theme.font_family.name}, ${({ theme }) =>
   theme.font_family.type};
-  /* font-family: "Space Mono", monospace; */
-  /* font-size: 1.15em; */
+  
   margin: 30px;
   padding: 10px;
 }

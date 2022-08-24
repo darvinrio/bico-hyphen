@@ -15,6 +15,7 @@ import styled from "styled-components";
 
 import { dateFormatter } from "../utils/PlotHelpers";
 import { NumberFormatter } from "../utils/Formatters";
+import { Card } from "../layouts/Card";
 
 ChartJS.register(
   CategoryScale,
@@ -36,9 +37,10 @@ type hexcolor = `#${string}`;
 interface props {
   plotdata: dataprop[];
   color: hexcolor;
+  title: string;
 }
 
-export const BarPlot = ({ plotdata, color }: props) => {
+export const BarPlot = ({ plotdata, color, title }: props) => {
   plotdata.sort((a, b) => {
     return a.timestamp - b.timestamp;
   });
@@ -98,11 +100,13 @@ export const BarPlot = ({ plotdata, color }: props) => {
     ],
   };
   return (
-    <ChartWrap>
-      <ChartDiv>
-        <Bar options={options} data={data} />
-      </ChartDiv>
-    </ChartWrap>
+    <Card title={title}>
+      <ChartWrap>
+        <ChartDiv>
+          <Bar options={options} data={data} />
+        </ChartDiv>
+      </ChartWrap>
+    </Card>
   );
 };
 
@@ -115,8 +119,8 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  border: 1px;
+  /* border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px;
+  border-radius: 10px; */
 `;

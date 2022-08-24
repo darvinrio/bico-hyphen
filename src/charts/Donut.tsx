@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import styled from "styled-components";
+import { Card } from "../layouts/Card";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,9 +12,10 @@ export interface dataprop {
 
 interface props {
   plotdata: dataprop[];
+  title: string;
 }
 
-export const Donut = ({ plotdata }: props) => {
+export const Donut = ({ plotdata, title }: props) => {
   // console.log(plotdata);
 
   const labels = plotdata.map((data) => {
@@ -23,11 +25,11 @@ export const Donut = ({ plotdata }: props) => {
     return data.value;
   });
 
-  const alpha = 0.5
+  const alpha = 0.5;
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-  }
+  };
   const data = {
     labels: labels,
     datasets: [
@@ -55,11 +57,13 @@ export const Donut = ({ plotdata }: props) => {
     ],
   };
   return (
-    <ChartWrap>
-      <ChartDiv>
-        <Doughnut data={data} options={options}/>
-      </ChartDiv>
-    </ChartWrap>
+    <Card title={title}>
+      <ChartWrap>
+        <ChartDiv>
+          <Doughnut data={data} options={options} />
+        </ChartDiv>
+      </ChartWrap>
+    </Card>
   );
 };
 
@@ -73,8 +77,8 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  border: 1px;
+  /* border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px;
+  border-radius: 10px; */
 `;

@@ -5,7 +5,7 @@ import * as dfd from "danfojs";
 
 import { withdrawQuery } from "../sql/withdraw";
 import { queryFlipside } from "../utils/FlipsideQuery";
-import { BridgeIn } from "../components/BridgeIn";
+import { BridgeIn } from "../layouts/BridgeIn";
 
 export async function getStaticProps() {
   let network = "optimism";

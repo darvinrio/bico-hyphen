@@ -14,8 +14,7 @@ import "chartjs-adapter-date-fns";
 import { Bar } from "react-chartjs-2";
 import styled from "styled-components";
 
-import { dateFormatter } from "../utils/PlotHelpers";
-import { NumberFormatter } from "../utils/Formatters";
+import { Card } from "../layouts/Card";
 
 ChartJS.register(
   TimeScale,
@@ -37,9 +36,10 @@ export interface stackeddataprop {
 interface props {
   //   plotdata: stackeddataprop[];
   plotdata: dfd.DataFrame;
+  title: string;
 }
 
-export const StackedBar = ({ plotdata }: props) => {
+export const StackedBar = ({ plotdata, title }: props) => {
   plotdata.sortValues("date", { inplace: true });
   plotdata.resetIndex({ inplace: true });
   //   console.log(plotdata);
@@ -103,11 +103,13 @@ export const StackedBar = ({ plotdata }: props) => {
   };
 
   return (
-    <ChartWrap>
-      <ChartDiv>
-        <Bar options={options} data={data} />
-      </ChartDiv>
-    </ChartWrap>
+    <Card title={title}>
+      <ChartWrap>
+        <ChartDiv>
+          <Bar options={options} data={data} />
+        </ChartDiv>
+      </ChartWrap>
+    </Card>
   );
 };
 
@@ -120,8 +122,8 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  border: 1px;
+  /* border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px;
+  border-radius: 10px; */
 `;
