@@ -1,6 +1,5 @@
 import {
   Chart as ChartJS,
-  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -8,14 +7,17 @@ import {
   Tooltip,
   Filler,
   Legend,
+  TimeScale,
 } from "chart.js";
-import { dateFormatter } from "../utils/PlotHelpers";
-
+import "chartjs-adapter-date-fns";
 import { Line } from "react-chartjs-2";
 import styled from "styled-components";
 
+import { dateFormatter } from "../utils/PlotHelpers";
+import { NumberFormatter } from "../utils/Formatters";
+
 ChartJS.register(
-  CategoryScale,
+  TimeScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -42,7 +44,8 @@ export const Area = ({ plotdata, color }: props) => {
   });
 
   const timestamps = plotdata.map((data) => {
-    return dateFormatter(data.timestamp);
+    // return dateFormatter(data.timestamp);
+    return data.timestamp;
   });
   const balances = plotdata.map((data) => {
     return data.balance;
@@ -62,21 +65,18 @@ export const Area = ({ plotdata, color }: props) => {
       title: {
         display: false,
       },
-      scales: {
-        x: {
-          type: "time",
-          grid: {
-            display: false,
-          },
-          ticks: {
-            callback: function (value: number, index: number) {
-              return "$" + value;
-            },
-          },
+    },
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "week",
         },
-        y: {
-          grid: {
-            display: false,
+      },
+      y: {
+        ticks: {
+          callback: function (value: number, index: number) {
+            return NumberFormatter(value);
           },
         },
       },
@@ -107,7 +107,7 @@ export const Area = ({ plotdata, color }: props) => {
 };
 
 const ChartDiv = styled.div`
-  padding: 1rem ;
+  padding: 1rem;
   min-height: 300px;
   position: relative;
 `;

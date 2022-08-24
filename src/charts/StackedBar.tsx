@@ -1,3 +1,4 @@
+import * as dfd from "danfojs";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,9 +18,9 @@ import { dateFormatter } from "../utils/PlotHelpers";
 import { NumberFormatter } from "../utils/Formatters";
 
 ChartJS.register(
+  TimeScale,
   CategoryScale,
   LinearScale,
-  TimeScale,
   BarElement,
   Title,
   Tooltip,
@@ -27,28 +28,46 @@ ChartJS.register(
   Legend
 );
 
-export interface dataprop {
+export interface stackeddataprop {
+  key: string;
   timestamp: number;
   balance: number;
 }
-type hexcolor = `#${string}`;
 
 interface props {
-  plotdata: dataprop[];
-  color: hexcolor;
+  //   plotdata: stackeddataprop[];
+  plotdata: dfd.DataFrame;
 }
 
-export const BarPlot = ({ plotdata, color }: props) => {
-  plotdata.sort((a, b) => {
-    return a.timestamp - b.timestamp;
-  });
+export const StackedBar = ({ plotdata }: props) => {
+  plotdata.sortValues("date", { inplace: true });
+  plotdata.resetIndex({ inplace: true });
+  //   console.log(plotdata);
 
-  const timestamps = plotdata.map((data) => {
-    // return dateFormatter(data.timestamp);
-    return data.timestamp;
-  });
-  const balances = plotdata.map((data) => {
-    return data.balance;
+  let keys = plotdata["key"].unique().values;
+  let dates = plotdata["date"].unique().values;
+  // dates = dates.map((date:number) => {
+  //     return dateFormatter(date)
+  // })
+
+  const alpha = 0.5;
+  let bgcolor = [
+    `rgba(255, 99, 132, ${alpha})`,
+    `rgba(54, 162, 235, ${alpha})`,
+    `rgba(255, 206, 86, ${alpha})`,
+    `rgba(75, 192, 192, ${alpha})`,
+    `rgba(153, 102, 255, ${alpha})`,
+    `rgba(255, 159, 64, ${alpha})`,
+  ];
+  let i = 0;
+  let datasets = keys.map((key: string) => {
+    let keydf = plotdata.query(plotdata["key"].eq(key));
+
+    return {
+      label: key,
+      data: keydf["value"].values,
+      backgroundColor: bgcolor[i++],
+    };
   });
 
   const options = {
@@ -59,44 +78,30 @@ export const BarPlot = ({ plotdata, color }: props) => {
       mode: "index" as "index",
     },
     plugins: {
-      legend: {
-        display: false,
-      },
       title: {
         display: false,
+        // text: "Chart.js Bar Chart - Stacked",
       },
     },
     scales: {
       x: {
+        stacked: true,
         type: "time",
         time: {
           unit: "week",
         },
       },
       y: {
-        ticks: {
-          callback: function (value: number, index: number) {
-            return NumberFormatter(value);
-          },
-        },
+        stacked: true,
       },
     },
   };
 
   const data = {
-    labels: timestamps,
-    datasets: [
-      {
-        data: balances,
-        fill: true,
-        stepped: true,
-        backgroundColor: color + "46",
-        borderWidth: 1,
-        borderColor: color,
-        pointRadius: 0,
-      },
-    ],
+    labels: dates,
+    datasets: datasets,
   };
+
   return (
     <ChartWrap>
       <ChartDiv>

@@ -11,6 +11,7 @@
   "dependencies": {
     "@flipsidecrypto/sdk": "^1.1.0",
     "chart.js": "^3.9.1",
+    "chartjs-adapter-date-fns": "^2.0.0",
     "danfojs": "^1.1.1",
     "date-fns": "^2.29.2",
     "next": "12.2.5",

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import * as dfd from "danfojs";
 
 import styled from "styled-components";

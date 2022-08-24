@@ -3,9 +3,9 @@ import Head from "next/head";
 import React from "react";
 import * as dfd from "danfojs";
 
-import { depositQuery } from "../sql/deposit";
+import { withdrawQuery } from "../sql/withdraw";
 import { queryFlipside } from "../utils/FlipsideQuery";
-import { BridgeOut } from "../components/BridgeOut";
+import { BridgeIn } from "../components/BridgeIn";
 
 export async function getStaticProps() {
   let network = "optimism";
@@ -16,7 +16,7 @@ export async function getStaticProps() {
   let bico = "0xd6909e9e702024eb93312b989ee46794c0fb1c9d";
 
   const data = await queryFlipside(
-    depositQuery({ network, liq_pool, weth, usdc, usdt, bico })
+    withdrawQuery({ network, liq_pool, weth, usdc, usdt, bico })
   );
 
   data?.map((datapoint) => {
@@ -33,17 +33,17 @@ interface Props {
   data: JSON[];
 }
 
-const Deposit: NextPage<Props> = ({ data }: Props) => {
+const Withdraw: NextPage<Props> = ({ data }: Props) => {
   let df = new dfd.DataFrame(data);
-
+  console.log(df);
   return (
     <div>
       <Head>
-        <title> Bridging from Optimism </title>
+        <title> Bridging to Optimism </title>
       </Head>
-      <BridgeOut data={df} />
+      <BridgeIn data={df} />
     </div>
   );
 };
 
-export default Deposit;
+export default Withdraw;

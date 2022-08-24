@@ -20,8 +20,8 @@ type FlipData = {
   usd_vol: number;
 };
 
-export const OverallBridge = ({ data }: Props) => {
-//   console.log(data);
+export const BridgeOut = ({ data }: Props) => {
+  //   console.log(data);
   let grp = data.groupby(["date"]);
   let usdVOLdf = grp.col(["usd_vol"]).sum();
   let txVOLdf = grp.col(["txs"]).sum();
@@ -56,17 +56,20 @@ export const OverallBridge = ({ data }: Props) => {
         <BarPlot plotdata={txVOLData} color={"#5f5ccd"} />
       </TvlDiv>
       <br />
-      <hr />
-      <br />
-      <DepositBy data={data} data_key={"token"} />
-      <br />
-      <hr />
-      <br />
-      <DepositBy data={data} data_key={"chainname"} />
-      <br />
-      <hr />
-      <br />
-      <DepositBy data={data} data_key={"tag"} />
+      <DepositByDiv>
+        <div>
+          <p>by Token</p>
+          <DepositBy data={data} data_key={"token"} />
+        </div>
+        <div>
+          <p>by destination chain</p>
+          <DepositBy data={data} data_key={"chainname"} />
+        </div>
+        <div>
+          <p>by Interface</p>
+          <DepositBy data={data} data_key={"tag"} />
+        </div>
+      </DepositByDiv>
     </>
   );
 };
@@ -102,4 +105,11 @@ const MetricsDiv = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
   }
+`;
+
+const DepositByDiv = styled.div`
+  margin-top: 1 rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

@@ -14,7 +14,7 @@ interface props {
 }
 
 export const Donut = ({ plotdata }: props) => {
-  console.log(plotdata);
+  // console.log(plotdata);
 
   const labels = plotdata.map((data) => {
     return data.key;
@@ -23,7 +23,7 @@ export const Donut = ({ plotdata }: props) => {
     return data.value;
   });
 
-  const alpha = 0.3
+  const alpha = 0.5
   const options = {
     responsive: true,
     maintainAspectRatio: false,

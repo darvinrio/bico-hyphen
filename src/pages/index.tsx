@@ -2,11 +2,11 @@ import type { NextPage } from "next";
 import * as dfd from "danfojs";
 
 import Head from "next/head";
-import Image from "next/image";
 
-import { ValueLocked } from "../layouts/ValueLocked";
 import { tvlQuery } from "../sql/tvl";
 import { queryFlipside } from "../utils/FlipsideQuery";
+import { TotalValueLocked } from "../components/TotalValueLocked";
+import { TokenValueLocked } from "../components/TokenValueLocked";
 
 export async function getStaticProps() {
 
@@ -44,7 +44,9 @@ const Home: NextPage<Props> = ({data}:Props) => {
         <title>Hyphen on Optimism</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       </Head>
-      <ValueLocked df={df}/>
+      <>
+      <TotalValueLocked data={df} />
+      <TokenValueLocked data={df} /></>
     </div>
   );
 };

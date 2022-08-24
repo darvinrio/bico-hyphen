@@ -103,7 +103,7 @@ const TvlDiv = styled.div`
 const MetricsDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.5fr 0.5fr;
+  /* grid-template-rows: 0.5fr 0.5fr; */
   grid-gap: 1rem;
 
   @media (max-width: 1200px) {

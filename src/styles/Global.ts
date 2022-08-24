@@ -31,11 +31,11 @@ img {
   max-width: 100%;
 }
 a {
-  color: hotpink;
+  color: black;
   text-decoration: none;
 
   :hover{
-    color:pink ;
+    color:#5f5ccd ;
   }
 }
 `;
