@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as dfd from "danfojs";
 import {
   Chart as ChartJS,

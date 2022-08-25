@@ -22,7 +22,7 @@ const Home = () => {
     let chain = d.params.name;
     let deployments = fetchDeployments(chain.toUpperCase());
 
-    return <a href={`/chain/${chain}`}>{deployments.network}</a>;
+    return <a key={chain} href={`/chain/${chain}`}>{deployments.network}</a>;
   });
 
   return (

@@ -33,16 +33,21 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   });
 
   return {
-    props: { data: data, error: error }, // will be passed to the page component as props
+    props: {
+      data: data,
+      error: error,
+      network: network,
+    }, // will be passed to the page component as props
     revalidate: 1000,
   };
 }
 interface Props {
   data: JSON[];
   error: boolean;
+  network:string,
 }
 
-const Home: NextPage<Props> = ({ data, error }: Props) => {
+const Home: NextPage<Props> = ({ data, error, network }: Props) => {
   if (error) {
     return (
       <div>
@@ -53,13 +58,10 @@ const Home: NextPage<Props> = ({ data, error }: Props) => {
 
   let df = new dfd.DataFrame(data);
 
-  const router = useRouter();
-  const { name } = router.query;
-
   return (
     <div>
       <Head>
-        <title>TVL on {(name! as string).toUpperCase()}</title>
+        <title>TVL on {network}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Navbar />

@@ -19,10 +19,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const chain = (context.params!.name as string).toUpperCase();
+  const chain = context.params!.name as string;
 
-  let deployments = fetchDeployments(chain);
-  console.log(deployments);
+  let deployments = fetchDeployments(chain.toUpperCase());
+  // console.log(deployments);
   let { network, liq_prov, liq_pool, weth, usdc, usdt, bico } = deployments;
 
   const { data, error } = await queryFlipside(
@@ -34,7 +34,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   });
 
   return {
-    props: { data: data, error: error }, // will be passed to the page component as props
+    props: {
+      data: data,
+      error: error,
+      network: network,
+    }, // will be passed to the page component as props
     revalidate: 1000,
   };
 }
@@ -42,9 +46,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 interface Props {
   data: JSON[];
   error: boolean;
+  network:string,
 }
 
-const Deposit: NextPage<Props> = ({ data, error }: Props) => {
+const Deposit: NextPage<Props> = ({ data, error, network }: Props) => {
   if (error) {
     return (
       <div>
@@ -56,13 +61,10 @@ const Deposit: NextPage<Props> = ({ data, error }: Props) => {
   let df = new dfd.DataFrame(data);
   // console.log(df)
 
-  const router = useRouter();
-  const { name } = router.query;
-
   return (
     <div>
       <Head>
-        <title> Bridging from {(name! as string).toUpperCase()} </title>
+        <title> Bridging from {network} </title>
       </Head>
       <Navbar />
       <BridgeOut data={df} />
