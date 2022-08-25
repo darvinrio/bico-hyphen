@@ -24,7 +24,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   let deployments = fetchDeployments(chain);
   let { network, liq_prov, liq_pool, weth, usdc, usdt, bico } = deployments;
 
-  const data = await queryFlipside(
+  const { data, error } = await queryFlipside(
     tvlQuery({ network, liq_prov, weth, usdc, usdt, bico })
   );
 
@@ -33,15 +33,24 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   });
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data: data, error: error }, // will be passed to the page component as props
     revalidate: 1000,
   };
 }
 interface Props {
   data: JSON[];
+  error: boolean;
 }
 
-const Home: NextPage<Props> = ({ data }: Props) => {
+const Home: NextPage<Props> = ({ data, error }: Props) => {
+  if (error) {
+    return (
+      <div>
+        <h1>Flipside Error</h1>
+      </div>
+    );
+  }
+
   let df = new dfd.DataFrame(data);
 
   const router = useRouter();

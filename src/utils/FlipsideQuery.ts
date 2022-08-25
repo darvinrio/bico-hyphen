@@ -1,4 +1,4 @@
-import { Flipside, Query, QueryResultSet } from "@flipsidecrypto/sdk";
+import { Flipside, Query, QueryResultSet, QueryRunExecutionError } from "@flipsidecrypto/sdk";
 
 const flipside = new Flipside(
   process.env.NEXT_PUBLIC_FLIPSIDE_SHROOM_KEY as string,
@@ -13,9 +13,15 @@ export const queryFlipside = async (sql: string) => {
 
   const result: QueryResultSet = await flipside.query.run(query);
 
+  let error = false
   if (result.error) {
     console.log(result.error);
+    error = true
   }
   // return result.error ? [[]] : result.records;
-  return result.records
+  return  {
+    data: result.records,
+    // error: result.error
+    error: error
+  }
 };

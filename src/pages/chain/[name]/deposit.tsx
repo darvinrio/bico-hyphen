@@ -21,11 +21,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const chain = (context.params!.name as string).toUpperCase();
 
-  let deployments = fetchDeployments(chain)
-  console.log(deployments)
+  let deployments = fetchDeployments(chain);
+  console.log(deployments);
   let { network, liq_prov, liq_pool, weth, usdc, usdt, bico } = deployments;
 
-  const data = await queryFlipside(
+  const { data, error } = await queryFlipside(
     depositQuery({ network, liq_pool, weth, usdc, usdt, bico })
   );
 
@@ -34,21 +34,30 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   });
 
   return {
-    props: { data }, // will be passed to the page component as props
+    props: { data: data, error: error }, // will be passed to the page component as props
     revalidate: 1000,
   };
 }
 
 interface Props {
   data: JSON[];
+  error: boolean;
 }
 
-const Deposit: NextPage<Props> = ({ data }: Props) => {
+const Deposit: NextPage<Props> = ({ data, error }: Props) => {
+  if (error) {
+    return (
+      <div>
+        <h1>Flipside Error</h1>
+      </div>
+    );
+  }
+
   let df = new dfd.DataFrame(data);
   // console.log(df)
 
-  const router = useRouter()
-  const { name } = router.query
+  const router = useRouter();
+  const { name } = router.query;
 
   return (
     <div>
