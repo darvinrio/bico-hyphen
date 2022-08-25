@@ -36,7 +36,7 @@ type hexcolor = `#${string}`;
 interface props {
   plotdata: dataprop[];
   color: hexcolor;
-  title:string
+  title: string;
 }
 
 export const Area = ({ plotdata, color, title }: props) => {
@@ -99,13 +99,14 @@ export const Area = ({ plotdata, color, title }: props) => {
     ],
   };
   return (
-    <Card title={title}>
-      <ChartWrap>
-        <ChartDiv>
-          <Line options={options} data={data} />
-        </ChartDiv>
-      </ChartWrap>
-    </Card>
+    // <Card title={title}>
+    <ChartWrap>
+      <ChartDiv>
+        <Line options={options} data={data} />
+      </ChartDiv>
+      <ChartFooter>{title}</ChartFooter>
+    </ChartWrap>
+    // </Card>
   );
 };
 
@@ -118,8 +119,18 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  /* border: 1px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px; */
+  border-radius: 10px;
+`;
+
+const ChartFooter = styled.div`
+  padding: 10px;
+  font-size: 12px;
 `;

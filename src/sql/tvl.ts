@@ -1,6 +1,6 @@
 type Props = {
   network: string;
-  liq_pool: string;
+  liq_prov: string;
   weth: string;
   usdc: string;
   usdt: string;
@@ -9,7 +9,7 @@ type Props = {
 
 export const tvlQuery = ({
   network,
-  liq_pool,
+  liq_prov,
   weth,
   usdc,
   usdt,
@@ -46,7 +46,7 @@ export const tvlQuery = ({
         ethereum.public.udf_hex_to_int(substr(topics[2],3))/pow(10,decimals) as liq,
         rank() over(partition by token, date(block_timestamp) order by block_timestamp desc) as date_rank
     from ${network}.core.fact_event_logs
-    where contract_address = lower('${liq_pool}')
+    where contract_address = lower('${liq_prov}')
         and topics[0] = '0xf28044030a28cf7d3fb8e8f7bbaa42aee92214081fd522b3a38afb279577db89'
     order by block_timestamp desc 
     )

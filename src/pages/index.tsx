@@ -10,14 +10,14 @@ import { TokenValueLocked } from "../layouts/TokenValueLocked";
 
 export async function getStaticProps() {
   let network = "optimism";
-  let liq_pool = "0xb4778f5aefeb4605ed96e893417271d4a55e32ee";
+  let liq_prov = "0xb4778f5aefeb4605ed96e893417271d4a55e32ee";
   let weth = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
   let usdc = "0x7f5c764cbc14f9669b88837ca1490cca17c31607";
   let usdt = "";
   let bico = "0xd6909e9e702024eb93312b989ee46794c0fb1c9d";
 
   const data = await queryFlipside(
-    tvlQuery({ network, liq_pool, weth, usdc, usdt, bico })
+    tvlQuery({ network, liq_prov, weth, usdc, usdt, bico })
   );
 
   data?.map((datapoint) => {

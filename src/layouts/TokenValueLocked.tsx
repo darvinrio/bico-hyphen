@@ -7,7 +7,6 @@ import { Area, dataprop } from "../charts/Area";
 import { NumberFormatter } from "../utils/Formatters";
 import { Metric } from "../charts/Metric";
 import { tokenJSON } from "../json/tokens";
-import { TimeChartMaker } from "../components/TimeChartMaker";
 
 type Props = {
   data: dfd.DataFrame;
@@ -66,7 +65,7 @@ export const TokenValueLocked = ({ data }: Props) => {
             />
           </MetricsDiv>
           <Area title={token+" TVL USD"} plotdata={plotUSDdata} color={tokenJSON[token].color} />
-          <Area title={token+" TVL USD"} plotdata={plotTokendata} color={tokenJSON[token].color} />
+          <Area title={token+" TVL"} plotdata={plotTokendata} color={tokenJSON[token].color} />
         </TvlDiv>
       </div>
     );

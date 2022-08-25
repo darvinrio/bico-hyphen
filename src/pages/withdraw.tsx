@@ -35,7 +35,7 @@ interface Props {
 
 const Withdraw: NextPage<Props> = ({ data }: Props) => {
   let df = new dfd.DataFrame(data);
-  console.log(df);
+  // console.log(df);
   return (
     <div>
       <Head>
