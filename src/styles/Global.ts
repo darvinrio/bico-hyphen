@@ -31,7 +31,7 @@ img {
   max-width: 100%;
 }
 a {
-  color: black;
+  color: white;
   text-decoration: none;
 
   :hover{

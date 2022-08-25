@@ -9,6 +9,7 @@ import { depositQuery } from "../../../sql/deposit";
 import { fetchDeployments } from "../../../utils/DeplymentFetch";
 import { prefetchPages } from "../../../json/prefetch";
 import { useRouter } from "next/router";
+import { Navbar } from "../../../layouts/Navbar";
 
 export async function getStaticPaths() {
   return {
@@ -54,6 +55,7 @@ const Deposit: NextPage<Props> = ({ data }: Props) => {
       <Head>
         <title> Bridging from {(name! as string).toUpperCase()} </title>
       </Head>
+      <Navbar />
       <BridgeOut data={df} />
     </div>
   );

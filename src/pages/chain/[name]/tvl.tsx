@@ -9,6 +9,7 @@ import { TokenValueLocked } from "../../../layouts/TokenValueLocked";
 import { fetchDeployments } from "../../../utils/DeplymentFetch";
 import { prefetchPages } from "../../../json/prefetch";
 import { useRouter } from "next/router";
+import { Navbar } from "../../../layouts/Navbar";
 
 export async function getStaticPaths() {
   return {
@@ -52,6 +53,7 @@ const Home: NextPage<Props> = ({ data }: Props) => {
         <title>TVL on {(name! as string).toUpperCase()}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+      <Navbar />
       <>
         <TotalValueLocked data={df} />
         <TokenValueLocked data={df} />

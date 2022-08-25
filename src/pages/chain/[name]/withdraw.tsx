@@ -9,6 +9,7 @@ import { withdrawQuery } from "../../../sql/withdraw";
 import { BridgeIn } from "../../../layouts/BridgeIn";
 import { prefetchPages } from "../../../json/prefetch";
 import { useRouter } from "next/router";
+import { Navbar } from "../../../layouts/Navbar";
 
 export async function getStaticPaths() {
   return {
@@ -53,6 +54,7 @@ const Withdraw: NextPage<Props> = ({ data }: Props) => {
       <Head>
         <title> Bridging to {(name! as string).toUpperCase()} </title>
       </Head>
+      <Navbar />
       <BridgeIn data={df} />
     </div>
   );

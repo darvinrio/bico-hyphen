@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <ThemeProvider theme={myTheme}>
-        <Navbar />
+        {/* <Navbar /> */}
         <GlobalStyles />
         <Component {...pageProps} />
-        <Footer />
+        {/* <Footer /> */}
       </ThemeProvider>
     </>
   );

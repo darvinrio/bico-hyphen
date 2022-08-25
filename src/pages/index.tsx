@@ -1,53 +1,60 @@
-import type { NextPage } from "next";
-import * as dfd from "danfojs";
-
+import { useRouter } from "next/router";
 import Head from "next/head";
+import React from "react";
+import styled from "styled-components";
+import { GetStaticPropsContext } from "next";
+import { prefetchPages } from "../json/prefetch";
+import { fetchDeployments } from "../utils/DeplymentFetch";
 
-import { tvlQuery } from "../sql/tvl";
-import { queryFlipside } from "../utils/FlipsideQuery";
-import { TotalValueLocked } from "../layouts/TotalValueLocked";
-import { TokenValueLocked } from "../layouts/TokenValueLocked";
+// import homeStyle from '../../../styles/Home'
 
 export async function getStaticProps() {
-  let network = "optimism";
-  let liq_prov = "0xb4778f5aefeb4605ed96e893417271d4a55e32ee";
-  let weth = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-  let usdc = "0x7f5c764cbc14f9669b88837ca1490cca17c31607";
-  let usdt = "";
-  let bico = "0xd6909e9e702024eb93312b989ee46794c0fb1c9d";
+  return { props: {} };
+}
 
-  const data = await queryFlipside(
-    tvlQuery({ network, liq_prov, weth, usdc, usdt, bico })
-  );
+interface Props {
+  chain: string;
+  network: string;
+}
 
-  data?.map((datapoint) => {
-    datapoint.date = new Date(datapoint.date as string).getTime();
+const Home = () => {
+  let pages = prefetchPages.map((d) => {
+    let chain = d.params.name;
+    let deployments = fetchDeployments(chain.toUpperCase());
+
+    return <a href={`/chain/${chain}`}>{deployments.network}</a>;
   });
 
-  return {
-    props: { data }, // will be passed to the page component as props
-    revalidate: 1000,
-  };
-}
-interface Props {
-  data: JSON[];
-}
-
-const Home: NextPage<Props> = ({ data }: Props) => {
-  let df = new dfd.DataFrame(data);
-
   return (
-    <div>
+    <>
       <Head>
-        <title>Hyphen on Optimism</title>
+        <title>Hyphen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <>
-        <TotalValueLocked data={df} />
-        <TokenValueLocked data={df} />
-      </>
-    </div>
+      <FullPageNav>
+        <h1>{"Hyphen"}</h1>
+        {pages}
+      </FullPageNav>
+    </>
   );
 };
 
 export default Home;
+
+const FullPageNav = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+  gap: 30px;
+  /* justify-content: space-evenly; */
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+`;
