@@ -57,13 +57,12 @@ export const Donut = ({ plotdata, title }: props) => {
     ],
   };
   return (
-    <Card title={title}>
       <ChartWrap>
         <ChartDiv>
           <Doughnut data={data} options={options} />
         </ChartDiv>
+      <ChartFooter>{title}</ChartFooter>
       </ChartWrap>
-    </Card>
   );
 };
 
@@ -77,8 +76,18 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  /* border: 1px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px; */
+  border-radius: 10px;
+`;
+
+const ChartFooter = styled.div`
+  padding: 10px;
+  font-size: 12px;
 `;

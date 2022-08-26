@@ -22,7 +22,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const chain = (context.params!.name as string).toUpperCase();
 
   let deployments = fetchDeployments(chain);
-  console.log(deployments);
+  // console.log(deployments);
   let { network, liq_prov, liq_pool, weth, usdc, usdt, bico } = deployments;
 
   const { data, error } = await queryFlipside(

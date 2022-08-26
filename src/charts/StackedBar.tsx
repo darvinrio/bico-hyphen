@@ -64,10 +64,16 @@ export const StackedBar = ({ plotdata, title }: props) => {
   let i = 0;
   let datasets = keys.map((key: string) => {
     let keydf = plotdata.query(plotdata["key"].eq(key));
+    keydf.resetIndex({ inplace: true });
+    let values = dates.map((date) => {
+      let vals = keydf.query(keydf["date"].eq(date));
+      let value = vals["value"].values;
+      return value[0];
+    });
 
     return {
       label: key,
-      data: keydf["value"].values,
+      data: values,
       backgroundColor: bgcolor[i++],
     };
   });
@@ -105,13 +111,12 @@ export const StackedBar = ({ plotdata, title }: props) => {
   };
 
   return (
-    <Card title={title}>
-      <ChartWrap>
-        <ChartDiv>
-          <Bar options={options} data={data} />
-        </ChartDiv>
-      </ChartWrap>
-    </Card>
+    <ChartWrap>
+      <ChartDiv>
+        <Bar options={options} data={data} />
+      </ChartDiv>
+      <ChartFooter>{title}</ChartFooter>
+    </ChartWrap>
   );
 };
 
@@ -124,8 +129,18 @@ const ChartDiv = styled.div`
 const ChartWrap = styled.div`
   min-width: 0;
 
-  /* border: 1px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+
+  border: 1px;
   border-style: solid;
   border-color: white;
-  border-radius: 10px; */
+  border-radius: 10px;
+`;
+
+const ChartFooter = styled.div`
+  padding: 10px;
+  font-size: 12px;
 `;
