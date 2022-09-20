@@ -13,6 +13,9 @@ export const CategorizeBy = ({ data, data_key }: Props) => {
   // console.log(data_key);
 
   // Donut making
+
+  data = data.fillNa(["null",], { columns: [data_key] })
+
   let grp = data.groupby([data_key]);
   let txVOLdf = grp.col(["txs"]).sum();
   let usdVOLdf = grp.col(["usd_vol"]).sum();

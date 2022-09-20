@@ -44,7 +44,7 @@ interface props {
 export const StackedBar = ({ plotdata, title }: props) => {
   plotdata.sortValues("date", { inplace: true });
   plotdata.resetIndex({ inplace: true });
-  //   console.log(plotdata);
+  // console.log(plotdata);
 
   let keys = plotdata["key"].unique().values;
   let dates = plotdata["date"].unique().values;

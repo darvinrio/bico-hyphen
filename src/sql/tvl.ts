@@ -15,6 +15,11 @@ export const tvlQuery = ({
   usdt,
   bico,
 }: Props) => {
+
+  // handle bsc decimals of usdc and usdt 
+  // USDC and USDT have 6 decimals everywhere except BSC. 
+  const flag = network === 'bsc'? '1' : ''
+
   return `
     with 
     prices as (
@@ -39,8 +44,8 @@ export const tvlQuery = ({
             when lower('${weth}') then 'ETH'
         end as token,
         case token_address
-            when lower('${usdc}') then 6
-            when lower('${usdt}') then 6
+            when lower('${flag+usdc}') then 6
+            when lower('${flag+usdt}') then 6
         else 18 
         end as decimals,
         ethereum.public.udf_hex_to_int(substr(topics[2],3))/pow(10,decimals) as liq,

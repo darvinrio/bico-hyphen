@@ -15,6 +15,11 @@ export const depositQuery = ({
   usdt,
   bico,
 }: Props) => {
+
+  // handle bsc decimals of usdc and usdt 
+  // USDC and USDT have 6 decimals everywhere except BSC. 
+  const flag = network === 'bsc'? '1' : ''
+
   return `
     with 
     prices as (
@@ -40,8 +45,8 @@ export const depositQuery = ({
               when lower('${weth}') then 'ETH'
           end as token,
           case token_deposited
-              when lower('${usdc}') then 6
-              when lower('${usdt}') then 6
+              when lower('${flag+usdc}') then 6
+              when lower('${flag+usdt}') then 6
               else 18 
           end as decimals,
         regexp_substr_all(SUBSTR(data, 3, len(data)), '.{64}') AS segmented_data,
