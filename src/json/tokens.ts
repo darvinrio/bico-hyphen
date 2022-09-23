@@ -44,9 +44,9 @@ export const tokenJSON: tokenInfo = {
     deployments: {
       ETH: "0xdac17f958d2ee523a2206206994597c13d831ec7",
       ARB: "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
-      OPT: "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      OPT: "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
       POL: "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
-      AVA: "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      AVA: "0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7",
       BNB: "0x55d398326f99059ff775485246999027b3197955",
     },
     png_src: USDT_png,
